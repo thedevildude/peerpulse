@@ -4,8 +4,8 @@
   "description": "This is the backend for PeerPulse",
   "main": "src/index.ts",
   "scripts": {
-    "watch": "tsc -w",
-    "dev": "tsc -w & nodemon dist/index.js",
+    "watch": "npx tsc -w",
+    "dev": "npx tsc -w & nodemon dist/index.js",
     "start": "node dist/index.js",
     "build": "tsc"
   },
