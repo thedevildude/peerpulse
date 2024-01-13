@@ -22,11 +22,7 @@ app.get("/", (_: Request, res: Response, next: NextFunction) => {
   try {
     throw new Error("This is an error");
   } catch (error) {
-    next(
-      new Error(
-        `There was an error in the main route: ${error.message} ${error.stack}`
-      )
-    );
+    next(error);
   }
 });
 
