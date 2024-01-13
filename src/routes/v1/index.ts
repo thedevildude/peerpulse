@@ -17,7 +17,7 @@ _router.use("/v1", _router);
 _router.get("/", (_, res) => {
   res.status(200).json({
     success: true,
-    message: "You are on api v1",
+    message: "You are on the route for api v1",
   });
 });
 
