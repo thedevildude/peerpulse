@@ -37,7 +37,6 @@ export const errorHandler: ErrorRequestHandler = (
     ...(process.env.NODE_ENV === "development" && { stack: error.stack }),
   };
 
-  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === "development") {
     logger.error(error);
   }
