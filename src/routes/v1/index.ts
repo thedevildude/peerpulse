@@ -11,9 +11,6 @@ _router.use(function (req: Request, res: Response, next: NextFunction) {
   next();
 });
 
-//Export routes with base path
-_router.use("/v1", _router);
-
 _router.get("/", (_, res) => {
   res.status(200).json({
     success: true,
