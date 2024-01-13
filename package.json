@@ -24,6 +24,7 @@
     "@types/node": "^20.11.0",
     "@types/nodemailer": "^6.4.14",
     "nodemon": "^3.0.2",
+    "prettier": "^3.2.1",
     "typescript": "^5.3.3"
   }
 }
