@@ -1,8 +1,11 @@
 import express from "express";
+import { validate } from "../../middlewares/validate";
+import { authValidation } from "../../validations";
 
 const router = express.Router();
 
-router.get("/register", (req, res) => {
+router.post("/register", validate(authValidation.register), (req, res) => {
+  console.log(req.body);
   res.send("register");
 });
 
