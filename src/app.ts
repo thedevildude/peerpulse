@@ -1,5 +1,5 @@
 import express, { Express, NextFunction, Request, Response } from "express";
-import { router as v1 } from "./routes/v1/index";
+import v1 from "./routes/v1";
 import cors from "cors";
 import { errorConverter, errorHandler } from "./middlewares/error";
 import ApiError from "./utils/ApiError";
