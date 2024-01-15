@@ -1,12 +1,14 @@
 import express from "express";
 import { validate } from "../../middlewares/validate";
 import { authValidation } from "../../validations";
+import { authController } from "../../controllers";
 
 const router = express.Router();
 
-router.post("/register", validate(authValidation.register), (req, res) => {
-  console.log(req.body);
-  res.send("register");
-});
+router.post(
+  "/register",
+  validate(authValidation.register),
+  authController.register
+);
 
 export default router;
