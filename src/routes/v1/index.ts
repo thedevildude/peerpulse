@@ -1,20 +1,19 @@
-import { NextFunction, Request, Response, Router } from "express";
+import express, { NextFunction, Request, Response } from "express";
+import authRoute from "./auth.route";
 
-const _router: Router = Router({
-  mergeParams: true,
-});
+const router = express.Router();
 
 //Setting up the API Version
-_router.use(function (req: Request, res: Response, next: NextFunction) {
+router.use(function (req: Request, res: Response, next: NextFunction) {
   res.setHeader("Api-Version", "v1");
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   next();
 });
 
-//Export routes with base path
-_router.use("/v1", _router);
+//Setting up the routes
+router.use("/auth", authRoute);
 
-_router.get("/", (_, res) => {
+router.get("/", (_, res) => {
   res.status(200).json({
     success: true,
     message: "You are on the route for api v1",
@@ -22,4 +21,4 @@ _router.get("/", (_, res) => {
 });
 
 //Export the router
-export const router = _router;
+export default router;

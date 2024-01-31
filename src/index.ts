@@ -1,24 +1,42 @@
-import express, { Express, Request, Response } from "express";
-import { router as v1 } from "./routes/v1/index";
+import { Server } from "http";
+import app from "./app";
+import prisma from "./client";
+import logger from "./config/logger";
 
-const app: Express = express();
+let server: Server;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-/* Route */
-app.use("/api", v1);
-
-/* Main Route */
-
-app.get("/", (_: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    message:
-      "You are on node-typescript-express. You should not have further access from here.",
+// Server starts when database is connected
+prisma.$connect().then(() => {
+  logger.info("Connected to Postgresql database");
+  server = app.listen(5000, () => {
+    logger.info("Server running on port 5000");
   });
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+const exitHandler = () => {
+  if (server) {
+    server.close(() => {
+      logger.info("Server closed");
+      prisma.$disconnect();
+      process.exit(1);
+    });
+  } else {
+    prisma.$disconnect();
+    process.exit(1);
+  }
+};
+
+const unexpectedErrorHandler = (error: unknown) => {
+  logger.error(error);
+  exitHandler();
+};
+
+process.on("uncaughtException", unexpectedErrorHandler);
+process.on("unhandledRejection", unexpectedErrorHandler);
+
+process.on("SIGTERM", () => {
+  logger.info("SIGTERM received");
+  if (server) {
+    server.close();
+  }
 });
