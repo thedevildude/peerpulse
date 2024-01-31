@@ -28,7 +28,7 @@ export const errorHandler: ErrorRequestHandler = (
   response,
   next
 ) => {
-  let { statusCode, message } = error;
+  const { statusCode, message } = error;
   response.locals.errorMessage = error.message;
 
   const reponse = {
