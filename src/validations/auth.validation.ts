@@ -14,6 +14,19 @@ const register = zod.object({
   }),
 });
 
+const login = zod.object({
+  body: zod.object({
+    email: zod.string().email({ message: "Invalid email address" }),
+    password: zod.string().min(1, { message: "Password is required" }),
+  }),
+});
+
+const logout = zod.object({
+  body: zod.object({
+    refreshToken: zod.string().trim().min(1),
+  }),
+});
+
 const refreshToken = zod.object({
   body: zod.object({
     refreshToken: zod.string().trim().min(1),
@@ -46,6 +59,8 @@ const verifyEmail = zod.object({
 
 export default {
   register,
+  login,
+  logout,
   refreshToken,
   forgotPassword,
   resetPassword,
