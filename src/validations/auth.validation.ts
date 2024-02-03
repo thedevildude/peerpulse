@@ -1,8 +1,14 @@
 import zod from "zod";
 
 const register = zod.object({
+  // anything@college.edu.anything
   body: zod.object({
-    email: zod.string().email({ message: "Invalid email address" }),
+    email: zod
+      .string()
+      .email({ message: "Invalid email address" })
+      .regex(/^[a-zA-Z0-9._%+-]+@[^.]+\.edu(?:\.[a-zA-Z]{2,})?$/, {
+        message: "Email must be a .edu email address",
+      }),
     password: zod
       .string()
       .min(5, { message: "Password must be at least 5 characters long" })
