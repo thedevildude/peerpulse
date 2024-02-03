@@ -87,14 +87,14 @@ const verifyToken = async (token: string, type: TokenType): Promise<Token> => {
 const generateAuthTokens = async (user: {
   id: string;
 }): Promise<AuthTokensResponse> => {
-  const accessTokenExpires = dayjs().add(5, "minutes");
+  const accessTokenExpires = dayjs().add(20, "minutes");
   const accessToken = generateToken(
     user.id,
     accessTokenExpires,
     TokenType.ACCESS
   );
 
-  const refreshTokenExpires = dayjs().add(10, "days");
+  const refreshTokenExpires = dayjs().add(20, "days");
   const refreshToken = generateToken(
     user.id,
     refreshTokenExpires,
@@ -124,7 +124,7 @@ const generateAuthTokens = async (user: {
  * @returns {Promise<string>}
  */
 const generateVerifyEmailToken = async (user: User): Promise<string> => {
-  const expires = dayjs().add(5, "minutes");
+  const expires = dayjs().add(20, "minutes");
   const verifyEmailToken = generateToken(
     user.id,
     expires,

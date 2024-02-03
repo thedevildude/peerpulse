@@ -118,7 +118,7 @@ const getUserByUsername = async <Key extends keyof User>(
 const updateUserById = async <Key extends keyof User>(
   userId: string,
   updateBody: Prisma.UserUpdateInput,
-  keys: Key[] = ["id", "email", "name", "role"] as Key[]
+  keys: Key[] = ["id", "email", "username", "role"] as Key[]
 ): Promise<Pick<User, Key> | null> => {
   const user = await getUserById(userId, ["id", "email", "username"]);
   if (!user) {

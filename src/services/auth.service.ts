@@ -91,7 +91,7 @@ const verifyEmail = async (verifyEmailToken: string): Promise<void> => {
       isEmailVerified: true,
     });
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, "Email verification failed");
+    throw new ApiError(httpStatus.UNAUTHORIZED, error.message);
   }
 };
 
