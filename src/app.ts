@@ -1,9 +1,11 @@
 import express, { Express, NextFunction, Request, Response } from "express";
 import v1 from "./routes/v1";
 import cors from "cors";
+import passport from "passport";
 import { errorConverter, errorHandler } from "./middlewares/error";
 import ApiError from "./utils/ApiError";
 import httpStatus from "http-status";
+import { jwtStrategy } from "./config/passport";
 
 const app: Express = express();
 
@@ -15,6 +17,10 @@ app.use(express.json());
 // enable cors
 app.use(cors());
 app.options("*", cors());
+
+// jwt authentication
+app.use(passport.initialize());
+passport.use("jwt", jwtStrategy);
 
 // v1 api routes
 app.use("/api/v1", v1);

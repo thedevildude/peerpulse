@@ -1,8 +1,14 @@
 import zod from "zod";
 
 const register = zod.object({
+  // anything@college.edu.anything
   body: zod.object({
-    email: zod.string().email({ message: "Invalid email address" }),
+    email: zod
+      .string()
+      .email({ message: "Invalid email address" })
+      .regex(/^[a-zA-Z0-9._%+-]+@[^.]+\.edu(?:\.[a-zA-Z]{2,})?$/, {
+        message: "Email must be a .edu email address",
+      }),
     password: zod
       .string()
       .min(5, { message: "Password must be at least 5 characters long" })
@@ -11,6 +17,19 @@ const register = zod.object({
       .string({ required_error: "Username is required" })
       .min(3, { message: "Username must be at least 3 characters long" })
       .max(15, { message: "Username must be at most 15 characters long" }),
+  }),
+});
+
+const login = zod.object({
+  body: zod.object({
+    email: zod.string().email({ message: "Invalid email address" }),
+    password: zod.string().min(1, { message: "Password is required" }),
+  }),
+});
+
+const logout = zod.object({
+  body: zod.object({
+    refreshToken: zod.string().trim().min(1),
   }),
 });
 
@@ -46,6 +65,8 @@ const verifyEmail = zod.object({
 
 export default {
   register,
+  login,
+  logout,
   refreshToken,
   forgotPassword,
   resetPassword,
