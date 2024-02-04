@@ -10,12 +10,24 @@ const verifyCallback =
     req: Request,
     resolve: (value?: unknown) => void,
     reject: (reason?: unknown) => void,
-    requiredRights: string[]
+    requiredRights: string[],
+    routesToSkipEmailVerification: string[] = []
   ) =>
   async (err: unknown, user: User | false, info: unknown) => {
     if (err || info || !user) {
       return reject(
         new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
+      );
+    }
+    // Check if the email verification should be skipped for the current route/url
+    const skipEmailVerification = routesToSkipEmailVerification.includes(
+      req.url
+    );
+    // Check if the email is verified only if skipEmailVerification is false
+    if (!skipEmailVerification && !user.isEmailVerified) {
+      console.log(user);
+      return reject(
+        new ApiError(httpStatus.UNAUTHORIZED, "Email not verified")
       );
     }
     req.user = user;
@@ -36,11 +48,21 @@ const verifyCallback =
 const auth =
   (...requiredRights: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
+    const routesToSkipEmailVerification = [
+      "/send-verification-email",
+      // Add other routes where email verification should be skipped
+    ];
     return new Promise((resolve, reject) => {
       passport.authenticate(
         "jwt",
         { session: false },
-        verifyCallback(req, resolve, reject, requiredRights)
+        verifyCallback(
+          req,
+          resolve,
+          reject,
+          requiredRights,
+          routesToSkipEmailVerification
+        )
       )(req, res, next);
     })
       .then(() => next())
