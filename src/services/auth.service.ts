@@ -1,6 +1,5 @@
 import httpStatus from "http-status";
-import tokenService from "./token.service";
-import userService from "./user.service";
+import { tokenService, userService, collegeService } from "../services";
 import ApiError from "../utils/ApiError";
 import { TokenType, User } from "@prisma/client";
 import prisma from "../client";
@@ -81,6 +80,10 @@ const verifyEmail = async (verifyEmailToken: string): Promise<void> => {
       verifyEmailToken,
       TokenType.VERIFY_EMAIL
     );
+    const user = await userService.getUserById(verifyEmailTokenData.userId, [
+      "id",
+      "email",
+    ]);
     await prisma.token.deleteMany({
       where: {
         userId: verifyEmailTokenData.userId,
@@ -90,6 +93,10 @@ const verifyEmail = async (verifyEmailToken: string): Promise<void> => {
     await userService.updateUserById(verifyEmailTokenData.userId, {
       isEmailVerified: true,
     });
+    // Join college after email verification
+    if (user) {
+      await collegeService.joinCollege(user.email, user.id);
+    }
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, error.message);
   }
