@@ -25,7 +25,6 @@ const verifyCallback =
     );
     // Check if the email is verified only if skipEmailVerification is false
     if (!skipEmailVerification && !user.isEmailVerified) {
-      console.log(user);
       return reject(
         new ApiError(httpStatus.UNAUTHORIZED, "Email not verified")
       );
@@ -33,7 +32,7 @@ const verifyCallback =
     req.user = user;
 
     if (requiredRights.length) {
-      const userRights = roleRights.get(user.role) ?? [];
+      const userRights = roleRights.get(user.role) || [];
       const hasRequiredRights = requiredRights.every((requiredRight) =>
         userRights.includes(requiredRight)
       );
