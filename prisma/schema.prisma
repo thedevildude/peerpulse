@@ -56,6 +56,7 @@ model College {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User[]
+  Post      Post[]
 }
 
 enum PostType {
@@ -70,6 +71,8 @@ model Post {
   PostType  PostType
   authorId  String
   Author    User      @relation(fields: [authorId], references: [id])
+  collegeId String?
+  College   College?  @relation(fields: [collegeId], references: [id])
   media     String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
