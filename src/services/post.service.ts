@@ -104,7 +104,7 @@ const getPostById = async <Key extends keyof Post>(
 };
 
 /**
- * Query posts
+ * Query college posts
  * @param {Partial<Post>} filter - Filter object (e.g. { authorId: "..." })
  * @param {Object} options - Query options (limit, page, sortBy, sortType)
  * @param {number} options.limit - Limit the number of results
@@ -114,7 +114,8 @@ const getPostById = async <Key extends keyof Post>(
  * @param {Array<Key>} keys - Keys to select
  * @returns {Promise<Pick<Post, Key>[]>} - A promise that resolves to an array of posts
  */
-const queryPosts = async <Key extends keyof Post>(
+const queryCollegePosts = async <Key extends keyof Post>(
+  collegeId: string,
   filter: Partial<Post>,
   options: {
     limit?: number;
@@ -129,6 +130,8 @@ const queryPosts = async <Key extends keyof Post>(
     "authorId",
     "media",
     "PostType",
+    "isEdited",
+    "options",
     "createdAt",
     "updatedAt",
   ] as Key[]
@@ -138,13 +141,15 @@ const queryPosts = async <Key extends keyof Post>(
   const sortBy = options.sortBy ?? "createdAt";
   const sortType = options.sortType ?? "desc";
 
-  return prisma.post.findMany({
-    where: filter,
+  const posts = await prisma.post.findMany({
+    where: { ...filter, collegeId, isDeleted: false },
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
     orderBy: { [sortBy]: sortType },
     skip: (page - 1) * limit,
-    take: limit,
-  }) as Promise<Pick<Post, Key>[]>;
+    take: parseInt(limit.toString()),
+  });
+
+  return posts as Pick<Post, Key>[];
 };
 
-export default { createPost, createPoll, getPostById, queryPosts };
+export default { createPost, createPoll, getPostById, queryCollegePosts };

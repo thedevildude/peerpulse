@@ -2,6 +2,9 @@ import httpStatus from "http-status";
 import catchAsync from "../utils/catchAsync";
 import { postService } from "../services";
 import { User } from "@prisma/client";
+import pick from "../utils/pick";
+import ApiError from "../utils/ApiError";
+import { RequestQuery } from "../types/request";
 
 const createPost = catchAsync(async (req, res) => {
   const user = req.user as User;
@@ -30,7 +33,31 @@ const createPoll = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(poll);
 });
 
+const queryCollegePosts = catchAsync(async (req, res) => {
+  const user = req.user as User;
+  if (!user.collegeId) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      "User is not associated with a college"
+    );
+  }
+  const filter = pick(req.query, ["authorId"]);
+  const options: RequestQuery = pick(req.query, [
+    "sortBy",
+    "sortType",
+    "limit",
+    "page",
+  ]);
+  const result = await postService.queryCollegePosts(
+    user.collegeId,
+    filter,
+    options
+  );
+  res.send(result);
+});
+
 export default {
   createPost,
   createPoll,
+  queryCollegePosts,
 };

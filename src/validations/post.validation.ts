@@ -27,16 +27,18 @@ const createPoll = zod.object({
       .trim()
       .min(1),
     media: zod.string().optional(),
-    options: zod.array(
-      zod.object({
-        content: zod
-          .string()
-          .max(100, { message: "Option must be at most 100 characters long" })
-          .trim()
-          .min(1),
-        media: zod.string().optional(),
-      })
-    ),
+    options: zod
+      .array(
+        zod.object({
+          content: zod
+            .string()
+            .max(100, { message: "Option must be at most 100 characters long" })
+            .trim()
+            .min(1),
+          media: zod.string().optional(),
+        })
+      )
+      .min(2),
   }),
 });
 

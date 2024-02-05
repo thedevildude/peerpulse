@@ -8,6 +8,10 @@ const router = express.Router();
 
 router
   .route("/")
+  .get(auth("queryCollegePosts"), postController.queryCollegePosts);
+
+router
+  .route("/create-post")
   .post(
     auth("createPost"),
     validate(postValidation.createPost),
@@ -15,9 +19,9 @@ router
   );
 
 router
-  .route("/poll")
+  .route("/create-poll")
   .post(
-    auth("createPost"),
+    auth("createPoll"),
     validate(postValidation.createPoll),
     postController.createPoll
   );
