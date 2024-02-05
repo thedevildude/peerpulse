@@ -1,7 +1,9 @@
 import httpStatus from "http-status";
 import ApiError from "../utils/ApiError";
 import prisma from "../client";
-import { Option, Post, PostType } from "@prisma/client";
+import { Option, Post, PostType, Prisma } from "@prisma/client";
+import { InfinitePaginatedQuery } from "../types/request";
+import { InfinitePaginatedResponse } from "../types/response";
 
 /**
  * Create a post
@@ -104,26 +106,17 @@ const getPostById = async <Key extends keyof Post>(
 };
 
 /**
- * Query college posts
- * @param {Partial<Post>} filter - Filter object (e.g. { authorId: "..." })
- * @param {Object} options - Query options (limit, page, sortBy, sortType)
- * @param {number} options.limit - Limit the number of results
- * @param {number} options.page - Page number
- * @param {string} options.sortBy - Sort by field
- * @param {"asc" | "desc"} options.sortType - Sort type (asc, desc)
- * @param {Array<Key>} keys - Keys to select
- * @returns {Promise<Pick<Post, Key>[]>} - A promise that resolves to an array of posts
+ * Infinite paginated query for college posts
+ * @param {InfinitePaginatedQuery<Post, keyof Post>} query
+ * @returns {Promise<InfinitePaginatedResponse<Post, keyof Post>>}
  */
-const queryCollegePosts = async <Key extends keyof Post>(
-  collegeId: string,
-  filter: Partial<Post>,
-  options: {
-    limit?: number;
-    page?: number;
-    sortBy?: string;
-    sortType?: "asc" | "desc";
-  },
-  keys: Key[] = [
+
+const queryCollegePosts = async ({
+  entityId,
+  search,
+  filter,
+  options,
+  keys = [
     "id",
     "title",
     "content",
@@ -134,22 +127,47 @@ const queryCollegePosts = async <Key extends keyof Post>(
     "options",
     "createdAt",
     "updatedAt",
-  ] as Key[]
-): Promise<Pick<Post, Key>[]> => {
-  const page = options.page ?? 1;
-  const limit = options.limit ?? 10;
-  const sortBy = options.sortBy ?? "createdAt";
-  const sortType = options.sortType ?? "desc";
+  ] as (keyof Post)[],
+}: InfinitePaginatedQuery<Post, keyof Post>): Promise<
+  InfinitePaginatedResponse<Post, keyof Post>
+> => {
+  const limit = options?.limit || 100;
+  const sortBy = options?.sortBy ?? "createdAt";
+  const sortType = options?.sortType ?? "desc";
+  const cursor = options?.cursor ?? null;
 
-  const posts = await prisma.post.findMany({
-    where: { ...filter, collegeId, isDeleted: false },
+  const where: Prisma.PostWhereInput = {
+    ...filter,
+    collegeId: entityId,
+    isDeleted: false,
+    AND: search
+      ? {
+          OR: [
+            { title: { contains: search, mode: "insensitive" } },
+            { content: { contains: search, mode: "insensitive" } },
+          ],
+        }
+      : undefined,
+  };
+
+  const posts = (await prisma.post.findMany({
+    where,
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
     orderBy: { [sortBy]: sortType },
-    skip: (page - 1) * limit,
-    take: parseInt(limit.toString()),
-  });
+    cursor: cursor ? { id: cursor } : undefined,
+    take: parseInt(limit.toString()) + 1,
+  })) as Pick<Post, keyof Post>[];
 
-  return posts as Pick<Post, Key>[];
+  const hasMore = posts.length > limit;
+  if (hasMore) {
+    posts.pop();
+  }
+
+  return {
+    data: posts as Pick<Post, keyof Post>[],
+    hasMore,
+    cursor: posts[posts.length - 1]?.id ?? null,
+  };
 };
 
 export default { createPost, createPoll, getPostById, queryCollegePosts };
