@@ -1,0 +1,43 @@
+name: PostgreSQL service and tests
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+    container: node:20.x
+    services:
+      postgres:
+        image: postgres
+        env:
+          PG_DATABASE: peerpulse_test
+          PG_USER: postgres
+          PG_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run prisma migrations
+        run: npx prisma migrate dev --name test --preview-feature
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/peerpulse_test
+
+      - name: Run tests
+        run: npm test
+        env:
+          TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/peerpulse_test
