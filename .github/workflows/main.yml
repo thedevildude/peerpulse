@@ -9,16 +9,16 @@ on:
       - develop
       - main
 jobs:
-  container-job:
+  postgress-container-job:
     runs-on: ubuntu-latest
     container: node:20.10.0
     services:
       postgres:
         image: postgres
         env:
+          POSTGRES_DB: postgres
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: peerpulse_test
         ports:
           - 5432:5432
         options: >-
@@ -34,12 +34,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate Prisma client
-        run: npx prisma generate
-        env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/peerpulse_test
       - name: Run prisma migrations
-        run: npx prisma migrate dev --name test --preview-feature
+        run: npx prisma migrate dev --name init --preview-feature
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/peerpulse_test
 
