@@ -16,7 +16,6 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_DB: postgres
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
@@ -31,13 +30,18 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
       - name: Install dependencies
         run: npm ci
 
       - name: Run prisma migrations
         run: npx prisma migrate dev --name init --preview-feature
         env:
-          DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/
+          DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres?connect_timeout=300
 
       - name: Run tests
         run: npm test
