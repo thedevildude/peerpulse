@@ -33,6 +33,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate Prisma client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/peerpulse_test
       - name: Run prisma migrations
         run: npx prisma migrate dev --name test --preview-feature
         env:
