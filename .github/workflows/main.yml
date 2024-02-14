@@ -26,6 +26,9 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/peerpulse_test?connect_timeout=300
+      TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/peerpulse_test?connect_timeout=300
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -36,14 +39,10 @@ jobs:
           node-version: "20.x"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run prisma migrations
         run: npx prisma migrate dev --name init --preview-feature
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/postgres?connect_timeout=300
 
       - name: Run tests
         run: npm test
-        env:
-          TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/postgres?connect_timeout=300
