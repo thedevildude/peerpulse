@@ -34,6 +34,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Start postgresql on localhost
+        run: |
+          service postgresql start
+          -u postgres psql -c "ALTER USER postgres
+
       - name: Install postgresql-client
         run: |
           apt-get update && apt-get install -y postgresql-client
