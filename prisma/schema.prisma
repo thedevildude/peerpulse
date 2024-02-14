@@ -11,17 +11,21 @@ datasource db {
 }
 
 model User {
-  id              String   @id @default(uuid())
-  email           String   @unique
-  username        String   @unique
+  id              String    @id @default(uuid())
+  email           String    @unique
+  username        String    @unique
   password        String
-  role            Role     @default(USER)
-  isEmailVerified Boolean  @default(false)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  role            Role      @default(USER)
+  isEmailVerified Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
   Token           Token[]
-  college         College? @relation(fields: [collegeId], references: [id])
+  college         College?  @relation(fields: [collegeId], references: [id])
   collegeId       String?
+  Post            Post[]
+  Like            Like[]
+  Comment         Comment[]
+  Vote            Vote[]
 }
 
 model Token {
@@ -52,4 +56,79 @@ model College {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User[]
+  Post      Post[]
+}
+
+enum PostType {
+  POST
+  POLL
+}
+
+model Post {
+  id        String    @id @default(uuid())
+  title     String?   @db.Char(80)
+  content   String
+  PostType  PostType
+  authorId  String
+  Author    User      @relation(fields: [authorId], references: [id])
+  collegeId String?
+  College   College?  @relation(fields: [collegeId], references: [id])
+  media     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  isEdited  Boolean   @default(false)
+  isDeleted Boolean   @default(false)
+  options   Option[]
+  likes     Like[]
+  comments  Comment[]
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  postId    String
+  userId    String
+  Post      Post     @relation(fields: [postId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([postId, userId])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  postId    String
+  userId    String
+  Post      Post     @relation(fields: [postId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
+  isEdited  Boolean  @default(false)
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Option {
+  id        String   @id @default(uuid())
+  content   String   @db.Char(100)
+  media     String?
+  postId    String
+  Post      Post     @relation(fields: [postId], references: [id])
+  votes     Vote[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([postId, content, media])
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  userId    String
+  optionId  String
+  Option    Option   @relation(fields: [optionId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, optionId])
 }

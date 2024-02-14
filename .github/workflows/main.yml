@@ -1,0 +1,50 @@
+name: PostgreSQL service and tests
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
+jobs:
+  postgress-container-job:
+    runs-on: ubuntu-latest
+    container: node:20.10.0
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: peerpulse-test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/peerpulse-test?connect_timeout=300
+      TEST_DATABASE_URL: postgresql://postgres:password@postgres:5432/peerpulse-test?connect_timeout=300
+      JWT_SECRET: somejwtsecret
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run prisma migrations
+        run: npx prisma migrate dev --name init --preview-feature
+
+      - name: Run tests
+        run: npm test
