@@ -17,7 +17,8 @@ jobs:
         image: postgres:15
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: peerpulse_test
         ports:
           - 5432:5432
         options: >-
@@ -27,8 +28,8 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/peerpulse_test?connect_timeout=300
-      TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/peerpulse_test?connect_timeout=300
+      DATABASE_URL: postgresql://postgres:password@localhost:5432/peerpulse_test?connect_timeout=300
+      TEST_DATABASE_URL: postgresql://postgres:password@localhost:5432/peerpulse_test?connect_timeout=300
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
