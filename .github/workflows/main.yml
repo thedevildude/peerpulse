@@ -34,25 +34,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Start postgresql on localhost
-        run: |
-          service postgresql start
-          -u postgres psql -c "ALTER USER postgres
-
-      - name: Install postgresql-client
-        run: |
-          apt-get update && apt-get install -y postgresql-client
-
-      - name: Create database
-        run: |
-          psql -h localhost -U postgres -c "CREATE DATABASE peerpulse_test"
-
       - name: Run prisma migrations
         run: npx prisma migrate dev --name init --preview-feature
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/peerpulse_test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
 
       - name: Run tests
         run: npm test
         env:
-          TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/peerpulse_test
+          TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
