@@ -35,7 +35,7 @@ jobs:
         run: npm ci
 
       - name: Create test database
-        run: psql -h localhost -U postgres -c 'CREATE DATABASE peerpulse_test'
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client psql -h localhost -U postgres -c "CREATE DATABASE peerpulse_test"
 
       - name: Run prisma migrations
         run: npx prisma migrate dev --name init --preview-feature
