@@ -19,6 +19,7 @@ jobs:
           PG_DATABASE: peerpulse_test
           PG_USER: postgres
           PG_PASSWORD: postgres
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
