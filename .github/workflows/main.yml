@@ -16,9 +16,9 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: peerpulse-test
+          PG_DATABASE: peerpulse-test
+          PG_USER: postgres
+          PG_PASSWORD: postgres
         ports:
           - 5432:5432
         options: >-
