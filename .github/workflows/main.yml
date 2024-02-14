@@ -37,9 +37,9 @@ jobs:
       - name: Run prisma migrations
         run: npx prisma migrate dev --name init --preview-feature
         env:
-          DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
+          DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres?connect_timeout=300
 
       - name: Run tests
         run: npm test
         env:
-          TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
+          TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres?connect_timeout=300
