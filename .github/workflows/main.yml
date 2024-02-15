@@ -47,4 +47,4 @@ jobs:
         run: npx prisma migrate dev --name init --preview-feature
 
       - name: Run integration tests
-        run: npm test:integration
+        run: npm run test:integration
