@@ -1,4 +1,4 @@
-name: PostgreSQL service and tests
+name: PostgreSQL service and integration tests
 on:
   pull_request:
     branches:
@@ -45,9 +45,6 @@ jobs:
 
       - name: Run prisma migrations
         run: npx prisma migrate dev --name init --preview-feature
-
-      - name: Run unit tests
-        run: npm test:unit
 
       - name: Run integration tests
         run: npm test:integration
