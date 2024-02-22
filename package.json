@@ -9,6 +9,8 @@
     "start": "NODE_ENV=production node dist/index.js",
     "preserve": "npm run build",
     "serve": "NODE_ENV=development concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
+    "test:unit": "jest --config=jest.unit.config.ts",
+    "test:integration": "jest --config=jest.integration.config.ts",
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -4,7 +4,9 @@ module.exports = {
   testEnvironmentOptions: {
     NODE_ENV: "test",
   },
+  testMatch: ["**/*.test.ts"],
   restoreMocks: true,
+  clearMocks: true,
   coveragePathIgnorePatterns: [
     "node_modules",
     "src/config",

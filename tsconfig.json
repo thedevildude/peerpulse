@@ -2,10 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "lib": [
-      "es2016",
-      "dom"
-    ],
+    "lib": ["es2016", "dom"],
     "allowJs": true,
     "checkJs": true,
     "strictNullChecks": true,
@@ -18,14 +15,8 @@
     "esModuleInterop": true,
     "pretty": true,
     "experimentalDecorators": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "typeRoots": ["node_modules/@types"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts", "src/utils/singleton.ts"],
+  "exclude": ["node_modules"]
 }
