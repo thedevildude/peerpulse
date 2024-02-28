@@ -29,9 +29,9 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          registryUrl: cabe093eced8acr.azurecr.io
+          registryUrl: peerpulsereg.azurecr.io
           registryUsername: ${{ secrets.PEERPULSE_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.PEERPULSE_REGISTRY_PASSWORD }}
-          containerAppName: peerpulse
-          resourceGroup: peerpulse-rg
-          imageToBuild: cabe093eced8acr.azurecr.io/peerpulse:${{ github.sha }}
+          containerAppName: peerpulse-app
+          resourceGroup: peerpulse-group
+          imageToBuild: peerpulsereg.azurecr.io/peerpulse:${{ github.sha }}
