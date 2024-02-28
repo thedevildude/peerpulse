@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - "**"
-      - ".github/workflows/peerpulse-AutoDeployTrigger-bd9d0fce-1493-4f05-b5df-9ea333956baa.yml"
+      - ".github/workflows/peerpulse-autodeploy.yml"
 
   # Allow manual trigger
   workflow_dispatch:
