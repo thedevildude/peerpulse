@@ -1,0 +1,6 @@
+version: '3.8'
+
+services:
+  peerpulse-server:
+    container_name: peerpulse-server-dev
+    command: npm run serve

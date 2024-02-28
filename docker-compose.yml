@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  peerpulse-server:
+    build: .
+    image: peerpulse-server
+    ports:
+      - '5000:5000'
+    volumes:
+      - .:/app
+    networks:
+      - peerpulse-network
+
+networks:
+  peerpulse-network:
+    driver: bridge
