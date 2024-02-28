@@ -6,6 +6,10 @@ COPY package*.json ./
 
 RUN npm install
 
+RUN npm install -g typescript
+
+RUN npx run build
+
 COPY . .
 
 EXPOSE 5000
