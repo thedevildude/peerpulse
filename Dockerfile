@@ -8,7 +8,7 @@ RUN npm install
 
 RUN npm install -g typescript
 
-RUN npx tsc
+RUN npx run build
 
 COPY . .
 
