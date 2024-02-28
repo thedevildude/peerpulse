@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "rimraf dist && npx tsc",
-    "buildrender": "npx tsc",
+    "buildrender": "npm install -g typescript && npx tsc",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node dist/index.js",
     "preserve": "npm run build",
