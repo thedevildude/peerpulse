@@ -19,7 +19,7 @@ jobs:
       JWT_SECRET: somejwtsecret
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
