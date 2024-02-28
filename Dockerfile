@@ -8,9 +8,9 @@ RUN npm install
 
 RUN npm install -g typescript
 
-RUN npm run build
-
 COPY . .
+
+RUN npm run build
 
 EXPOSE 5000
 
