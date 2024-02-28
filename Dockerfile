@@ -10,6 +10,8 @@ RUN npm install -g typescript
 
 COPY . .
 
+RUN npx prisma generate
+
 RUN npm run build
 
 EXPOSE 5000
