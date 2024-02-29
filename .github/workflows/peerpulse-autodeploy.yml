@@ -36,7 +36,6 @@ jobs:
           resourceGroup: ${{ secrets.PEERPULSE_RESOURCE_GROUP }}
           imageToBuild: ${{ secrets.PEERPULSE_CONTAINER_REGISTRY }}.azurecr.io/peerpulse:${{ github.sha }}
 
-  test-deployment:
     needs: build-and-deploy
     runs-on: ubuntu-latest
 
