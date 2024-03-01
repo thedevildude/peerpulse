@@ -1,19 +1,25 @@
-FROM node:alpine
+FROM node:alpine as base
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
-
-RUN npm install -g typescript
-
 COPY . .
 
+RUN npm install
 RUN npx prisma generate
-
-RUN npm run build
 
 EXPOSE 5000
 
-CMD ["npm", "start"]
+FROM base as development
+
+ENV NODE_ENV=development
+
+CMD ["npm", "run", "serve"]
+
+FROM base as production
+
+ENV NODE_ENV=production
+RUN npm install -g pm2
+
+CMD ["npm", "run", "start"]
