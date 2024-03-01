@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf dist && npx tsc",
     "prestart": "npm run build",
-    "start": "NODE_ENV=production pm2-runtime start ecosystem.config.js",
+    "start": "NODE_ENV=production pm2 start ecosystem.config.js --no-daemon",
     "preserve": "npm run build",
     "serve": "NODE_ENV=development concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
     "test:unit": "jest --config=jest.unit.config.ts",
