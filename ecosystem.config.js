@@ -22,12 +22,11 @@ module.exports = {
 
       env_development: {
         NODE_ENV: "development",
-        PORT: 5001,
+        PORT: 5000,
         watch: true,
         watch_delay: 3000,
         ignore_watch: [
           "./node_modules",
-          "./app/views",
           "./public",
           "./.DS_Store",
           "./package.json",
