@@ -5,11 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "rimraf dist && npx tsc",
-    "buildrender": "npm install -g typescript && npx tsc",
     "prestart": "npm run build",
-    "prerenderstart": "npm run buildrender",
-    "renderstart": "NODE_ENV=production node dist/index.js",
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=production pm2-runtime start ecosystem.config.js",
     "preserve": "npm run build",
     "serve": "NODE_ENV=development concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
     "test:unit": "jest --config=jest.unit.config.ts",

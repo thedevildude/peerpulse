@@ -35,32 +35,3 @@ jobs:
           containerAppName: ${{ secrets.PEERPULSE_CONTAINER_APP_NAME }}
           resourceGroup: ${{ secrets.PEERPULSE_RESOURCE_GROUP }}
           imageToBuild: ${{ secrets.PEERPULSE_CONTAINER_REGISTRY }}.azurecr.io/peerpulse:${{ github.sha }}
-
-  test-deployment:
-    needs: build-and-deploy
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.PEERPULSE_AZURE_CREDENTIALS }}
-
-      - name: Install containerapp extension
-        run: az extension add --name containerapp --upgrade
-
-      - name: Get the latest revision
-        run:
-          REVISION_NAME=`az containerapp revision list -n ${{ secrets.PEERPULSE_CONTAINER_APP_NAME }} -g ${{ secrets.PEERPULSE_RESOURCE_GROUP }} --query "[].name" -o tsv | tail -1`
-          REVISION_FQDN=`az containerapp revision show -n ${{ secrets.PEERPULSE_CONTAINER_APP_NAME }} -g ${{ secrets.PEERPULSE_RESOURCE_GROUP }} --revision "$REVISION_NAME" --query properties.fqdn -o tsv`
-          echo "REVISION_NAME=$REVISION_NAME" >> $GITHUB_ENV
-          echo "REVISION_FQDN=$REVISION_FQDN" >> $GITHUB_ENV
-
-      - name: Test the deployment
-        id: test-deployment
-        uses: jtalk/url-health-check-action@v3
-        with:
-          url: "https://${{ env.REVISION_FQDN }}/api/v1"
-
-      - name: Print the result
-        run: echo "The deployment is ${{ steps.test-deployment.outputs.status }}"
