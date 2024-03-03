@@ -1,0 +1,85 @@
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+PrismaClientInitializationError: Can't reach database server at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`
+
+Please make sure your database server is running at `ep-snowy-pond-15183692.ap-southeast-1.aws.neon.tech`:`5432`.
+    at t (/app/node_modules/@prisma/client/runtime/library.js:116:2723)
