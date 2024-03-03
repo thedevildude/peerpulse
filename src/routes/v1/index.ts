@@ -20,7 +20,7 @@ router.use("/post", postRoute);
 router.get("/", (_, res) => {
   res.status(200).json({
     success: true,
-    message: "You are on the route for api v1",
+    message: "API V1",
   });
 });
 
