@@ -6,8 +6,10 @@ volumes:
 
 services:
   peerpulse-db:
-    image: postgres
+    image: mcr.microsoft.com/cbl-mariner/base/postgres:14-cm2.0
     restart: always
+    env_file:
+      - .env
     environment:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_USER=postgres
@@ -26,7 +28,9 @@ services:
       - peerpulse-network
   peerpulse-server:
     build: .
-    image: peerpulse-server
+    image: peerpulsereg.azurecr.io/peerpulse
+    env_file:
+      - .env
     ports:
       - '5000:5000'
     volumes:

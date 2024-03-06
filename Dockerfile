@@ -1,4 +1,4 @@
-FROM node:alpine as base
+FROM mcr.microsoft.com/cbl-mariner/base/nodejs:18.18-cm2.0 as base
 
 WORKDIR /app
 
