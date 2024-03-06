@@ -9,6 +9,8 @@
     "start": "NODE_ENV=production pm2 start ecosystem.config.js --no-daemon",
     "preserve": "npm run build",
     "serve": "NODE_ENV=development concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
+    "dev": "NODE_ENV=development pm2-dev ecosystem.config.js",
+    "predev": "npm run build",
     "test:unit": "jest --config=jest.unit.config.ts",
     "test:integration": "jest --config=jest.integration.config.ts",
     "test": "jest",

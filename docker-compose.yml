@@ -1,6 +1,29 @@
 version: '3.8'
 
+volumes:
+  postgres_db:
+    driver: local
+
 services:
+  peerpulse-db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=postgres
+      - PGUSER=postgres
+      - POSTGRES_DB=peerpulse
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    networks:
+      - peerpulse-network
   peerpulse-server:
     build: .
     image: peerpulse-server
@@ -8,6 +31,9 @@ services:
       - '5000:5000'
     volumes:
       - .:/app
+    depends_on:
+      peerpulse-db:
+        condition: service_healthy
     networks:
       - peerpulse-network
 

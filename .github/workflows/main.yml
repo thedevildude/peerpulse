@@ -28,7 +28,7 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_URL: postgresql://postgres:password@postgres:5432/peerpulse-test?connect_timeout=300
+      LOCAL_DATABASE_URL: postgresql://postgres:password@postgres:5432/peerpulse-test?connect_timeout=300
       TEST_DATABASE_URL: postgresql://postgres:password@postgres:5432/peerpulse-test?connect_timeout=300
       JWT_SECRET: somejwtsecret
     steps:

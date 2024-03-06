@@ -22,9 +22,10 @@ module.exports = {
 
       env_development: {
         NODE_ENV: "development",
-        PORT: 5000,
+        PORT: 5001,
         watch: true,
         watch_delay: 3000,
+        exec_mode: "cluster_mode",
         ignore_watch: [
           "./node_modules",
           "./public",
