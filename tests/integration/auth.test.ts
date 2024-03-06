@@ -20,7 +20,7 @@ describe("Auth routes", () => {
       newUser = {
         email: "kk@uem.edu.in",
         password: "password",
-        username: faker.internet.userName(),
+        username: "someuser",
       };
     });
 
