@@ -7,6 +7,7 @@ const allRoles = {
     "votePoll",
     "commentPost",
     "queryCollegePosts",
+    "currentUser",
   ],
   [Role.ADMIN]: ["getUsers", "manageUsers"],
 };

@@ -50,6 +50,14 @@ const verifyEmail = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send("Email verified successfully");
 });
 
+const verifyToken = catchAsync(async (req, res) => {
+  const tokenDoc = await tokenService.verifyToken(
+    req.query.token as string,
+    "ACCESS"
+  );
+  res.send(tokenDoc);
+});
+
 export default {
   register,
   login,
@@ -57,4 +65,5 @@ export default {
   refreshTokens,
   sendVerificationEmail,
   verifyEmail,
+  verifyToken,
 };

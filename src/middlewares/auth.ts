@@ -49,6 +49,7 @@ const auth =
   async (req: Request, res: Response, next: NextFunction) => {
     const routesToSkipEmailVerification = [
       "/send-verification-email",
+      "/current-user",
       // Add other routes where email verification should be skipped
     ];
     return new Promise((resolve, reject) => {
