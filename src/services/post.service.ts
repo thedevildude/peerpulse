@@ -42,7 +42,7 @@ const createPost = async (
  * @param {string} title
  * @param {string} media
  * @param {string} collegeId
- * @returns {Promise<Post>}
+ * @returns {Promise<Post & {options: Option[]}>}
  */
 
 const createPoll = async (
@@ -52,7 +52,7 @@ const createPoll = async (
   title?: string,
   media?: string,
   collegeId?: string
-): Promise<Post> => {
+): Promise<Post & { options: Option[] }> => {
   if (options.length < 2) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
@@ -76,6 +76,9 @@ const createPoll = async (
         create: options,
       },
       collegeId,
+    },
+    include: {
+      options: true,
     },
   });
 };

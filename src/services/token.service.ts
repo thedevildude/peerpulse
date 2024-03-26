@@ -87,7 +87,7 @@ const verifyToken = async (token: string, type: TokenType): Promise<Token> => {
 const generateAuthTokens = async (user: {
   id: string;
 }): Promise<AuthTokensResponse> => {
-  const accessTokenExpires = dayjs().add(1, "minutes");
+  const accessTokenExpires = dayjs().add(20, "minutes");
   const accessToken = generateToken(
     user.id,
     accessTokenExpires,

@@ -67,7 +67,6 @@ const refreshAuth = async (
       where: {
         id: refreshTokenData.id,
         token: refreshTokenData.token,
-        type: TokenType.REFRESH,
       },
     });
     return token;
