@@ -25,6 +25,7 @@
   "author": "Devdeep Ghosh",
   "license": "ISC",
   "dependencies": {
+    "@azure/storage-blob": "^12.17.0",
     "@prisma/client": "^5.10.2",
     "bcryptjs": "^2.4.3",
     "chalk": "^5.3.0",

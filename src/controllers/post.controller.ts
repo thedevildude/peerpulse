@@ -4,6 +4,7 @@ import { postService } from "../services";
 import { User } from "@prisma/client";
 import pick from "../utils/pick";
 import ApiError from "../utils/ApiError";
+import { uploadBlob } from "../library/azure";
 
 const createPost = catchAsync(async (req, res) => {
   const user = req.user as User;
@@ -32,6 +33,13 @@ const createPoll = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(poll);
 });
 
+const uploadMedia = catchAsync(async (req, res) => {
+  const uploadMediaResponse = await uploadBlob(req);
+  res.status(httpStatus.CREATED).send({
+    mediaUrl: uploadMediaResponse,
+  });
+});
+
 const queryCollegePosts = catchAsync(async (req, res) => {
   const user = req.user as User;
   if (!user.collegeId) {
@@ -57,4 +65,5 @@ export default {
   createPost,
   createPoll,
   queryCollegePosts,
+  uploadMedia,
 };

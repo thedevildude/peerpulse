@@ -26,4 +26,8 @@ router
     postController.createPoll
   );
 
+router
+  .route("/upload-media")
+  .post(auth("uploadMedia"), postController.uploadMedia);
+
 export default router;

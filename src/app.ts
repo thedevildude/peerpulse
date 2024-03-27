@@ -13,6 +13,8 @@ const app: Express = express();
 app.use(express.urlencoded({ extended: true }));
 // parse json request body
 app.use(express.json());
+// accept image uploads
+app.use(express.static("public"));
 
 // enable cors
 app.use(cors());

@@ -8,6 +8,7 @@ const allRoles = {
     "commentPost",
     "queryCollegePosts",
     "currentUser",
+    "uploadMedia",
   ],
   [Role.ADMIN]: ["getUsers", "manageUsers"],
 };
