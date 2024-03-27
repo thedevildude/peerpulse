@@ -1,7 +1,7 @@
 import httpStatus from "http-status";
 import ApiError from "../utils/ApiError";
 import prisma from "../client";
-import { Option, Post, PostType, Prisma } from "@prisma/client";
+import { Option, Post, PostType, Prisma, User } from "@prisma/client";
 import { InfinitePaginatedQuery } from "../types/request";
 import { InfinitePaginatedResponse } from "../types/response";
 
@@ -134,7 +134,7 @@ const queryCollegePosts = async ({
     "updatedAt",
   ] as (keyof Post)[],
 }: InfinitePaginatedQuery<Post, keyof Post>): Promise<
-  InfinitePaginatedResponse<Post, keyof Post>
+  InfinitePaginatedResponse<Post, keyof Post & { Author: User }>
 > => {
   const limit = options?.limit || 100;
   const sortBy = options?.sortBy ?? "createdAt";
@@ -157,11 +157,14 @@ const queryCollegePosts = async ({
 
   const posts = (await prisma.post.findMany({
     where,
-    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+    select: {
+      ...keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+      Author: true,
+    },
     orderBy: { [sortBy]: sortType },
     cursor: cursor ? { id: cursor } : undefined,
     take: parseInt(limit.toString()) + 1,
-  })) as Pick<Post, keyof Post>[];
+  })) as (Post & { Author: User })[];
 
   const hasMore = posts.length > limit;
   if (hasMore) {
