@@ -4,6 +4,7 @@ const allRoles = {
   [Role.USER]: [
     "createPost",
     "createPoll",
+    "createComment",
     "votePoll",
     "commentPost",
     "queryCollegePosts",

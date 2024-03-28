@@ -130,6 +130,8 @@ const queryCollegePosts = async ({
     "PostType",
     "isEdited",
     "options",
+    "likes",
+    "comments",
     "createdAt",
     "updatedAt",
   ] as (keyof Post)[],

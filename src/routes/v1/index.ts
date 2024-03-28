@@ -3,6 +3,7 @@ import authRoute from "./auth.route";
 import collegeRoute from "./college.route";
 import postRoute from "./post.route";
 import userRoute from "./user.route";
+import commentRoute from "./comment.route";
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ router.use("/auth", authRoute);
 router.use("/college", collegeRoute);
 router.use("/post", postRoute);
 router.use("/user", userRoute);
+router.use("/comment", commentRoute);
 
 router.get("/", (_, res) => {
   res.status(200).json({
