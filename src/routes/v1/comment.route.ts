@@ -8,6 +8,10 @@ import checkActionAccess from "../../middlewares/checkActionAccess";
 const router = express.Router();
 
 router
+  .route("/")
+  .get(auth("queryCommentsForPost"), commentController.queryCommentsForPost);
+
+router
   .route("/create")
   .post(
     auth("createComment"),
