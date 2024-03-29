@@ -167,6 +167,13 @@ const queryCollegePosts = async ({
         include: {
           User: true,
         },
+        take: 1,
+      },
+      _count: {
+        select: {
+          comments: true,
+          likes: true,
+        },
       },
     },
     orderBy: { [sortBy]: sortType },
