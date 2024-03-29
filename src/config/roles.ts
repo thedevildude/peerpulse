@@ -4,9 +4,13 @@ const allRoles = {
   [Role.USER]: [
     "createPost",
     "createPoll",
+    "createComment",
     "votePoll",
     "commentPost",
     "queryCollegePosts",
+    "currentUser",
+    "uploadMedia",
+    "queryCommentsForPost",
   ],
   [Role.ADMIN]: ["getUsers", "manageUsers"],
 };

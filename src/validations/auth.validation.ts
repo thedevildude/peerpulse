@@ -63,6 +63,12 @@ const verifyEmail = zod.object({
   }),
 });
 
+const verifyToken = zod.object({
+  query: zod.object({
+    token: zod.string().trim().min(1),
+  }),
+});
+
 export default {
   register,
   login,
@@ -71,4 +77,5 @@ export default {
   forgotPassword,
   resetPassword,
   verifyEmail,
+  verifyToken,
 };
