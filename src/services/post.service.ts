@@ -4,6 +4,7 @@ import prisma from "../client";
 import { Option, Post, PostType, Prisma, User } from "@prisma/client";
 import { InfinitePaginatedQuery } from "../types/request";
 import { InfinitePaginatedResponse } from "../types/response";
+import { CollegePost } from "../types/Posts";
 
 /**
  * Create a post
@@ -112,7 +113,7 @@ const getPostById = async <Key extends keyof Post>(
 /**
  * Infinite paginated query for college posts
  * @param {InfinitePaginatedQuery<Post, keyof Post>} query
- * @returns {Promise<InfinitePaginatedResponse<Post, keyof Post>>}
+ * @returns {Promise<InfinitePaginatedResponse<CollegePost, keyof CollegePost>>}
  */
 
 const queryCollegePosts = async ({
@@ -136,7 +137,7 @@ const queryCollegePosts = async ({
     "updatedAt",
   ] as (keyof Post)[],
 }: InfinitePaginatedQuery<Post, keyof Post>): Promise<
-  InfinitePaginatedResponse<Post, keyof Post & { Author: User }>
+  InfinitePaginatedResponse<CollegePost, keyof CollegePost>
 > => {
   const limit = options?.limit || 100;
   const sortBy = options?.sortBy ?? "createdAt";
@@ -162,11 +163,16 @@ const queryCollegePosts = async ({
     select: {
       ...keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
       Author: true,
+      comments: {
+        include: {
+          User: true,
+        },
+      },
     },
     orderBy: { [sortBy]: sortType },
     cursor: cursor ? { id: cursor } : undefined,
     take: parseInt(limit.toString()) + 1,
-  })) as (Post & { Author: User })[];
+  })) as unknown as CollegePost[];
 
   const hasMore = posts.length > limit;
   if (hasMore) {
@@ -174,7 +180,7 @@ const queryCollegePosts = async ({
   }
 
   return {
-    data: posts as Pick<Post, keyof Post>[],
+    data: posts,
     hasMore,
     cursor: posts[posts.length - 1]?.id ?? null,
   };
