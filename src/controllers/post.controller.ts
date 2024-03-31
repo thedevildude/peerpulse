@@ -40,15 +40,18 @@ const uploadMedia = catchAsync(async (req, res) => {
   });
 });
 
+const getPostById = catchAsync(async (req, res) => {
+  const { postId } = req.params;
+  const post = await postService.getPostById(postId);
+  if (!post) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Post not found");
+  }
+  res.send(post);
+});
+
 const queryCollegePosts = catchAsync(async (req, res) => {
   const user = req.user as User;
-  if (!user.collegeId) {
-    throw new ApiError(
-      httpStatus.BAD_REQUEST,
-      "User is not associated with a college"
-    );
-  }
-  const entityId = user.collegeId;
+  const entityId = user.collegeId ?? undefined;
   const search = req.query.search ? String(req.query.search) : undefined;
   const filter = pick(req.query, ["authorId", "PostType"]);
   const options = pick(req.query, ["limit", "cursor", "sortBy", "sortType"]);
@@ -64,6 +67,7 @@ const queryCollegePosts = catchAsync(async (req, res) => {
 export default {
   createPost,
   createPoll,
+  getPostById,
   queryCollegePosts,
   uploadMedia,
 };

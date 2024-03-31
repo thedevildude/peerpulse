@@ -11,6 +11,8 @@ const allRoles = {
     "currentUser",
     "uploadMedia",
     "queryCommentsForPost",
+    "getPostById",
+    "likePost",
   ],
   [Role.ADMIN]: ["getUsers", "manageUsers"],
 };

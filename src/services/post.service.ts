@@ -88,7 +88,7 @@ const createPoll = async (
  * Get post by id
  * @param {string} id
  * @param {Array<Key>} keys
- * @returns {Promise<Pick<Post, Key> | null>}
+ * @returns {Promise<CollegePost | null>}
  */
 const getPostById = async <Key extends keyof Post>(
   id: string,
@@ -100,14 +100,32 @@ const getPostById = async <Key extends keyof Post>(
     "collegeId",
     "media",
     "PostType",
+    "isEdited",
+    "options",
+    "likes",
+    "comments",
     "createdAt",
     "updatedAt",
   ] as Key[]
-): Promise<Pick<Post, Key> | null> => {
+): Promise<Pick<CollegePost, keyof CollegePost> | null> => {
   return prisma.post.findUnique({
     where: { id },
-    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
-  }) as Promise<Pick<Post, Key> | null>;
+    select: {
+      ...keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+      Author: true,
+      comments: {
+        include: {
+          User: true,
+        },
+      },
+      _count: {
+        select: {
+          comments: true,
+          likes: true,
+        },
+      },
+    },
+  }) as Promise<Pick<CollegePost, keyof CollegePost> | null>;
 };
 
 /**
