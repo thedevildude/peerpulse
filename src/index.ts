@@ -1,15 +1,15 @@
-import { Server } from "http";
-import app from "./app";
+import httpServer from "./socket";
 import prisma from "./client";
 import logger from "./config/logger";
+import { Server } from "http";
 
 let server: Server;
 
 // Server starts when database is connected
 prisma.$connect().then(() => {
   logger.info("Connected to Postgresql database");
-  server = app.listen(5000, () => {
-    logger.info("Server running on port 5000");
+  server = httpServer.listen(5000, () => {
+    logger.info("Server running at http://localhost:5000");
   });
 });
 
