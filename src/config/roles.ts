@@ -13,6 +13,7 @@ const allRoles = {
     "queryCommentsForPost",
     "getPostById",
     "likePost",
+    "getExplanation",
   ],
   [Role.ADMIN]: ["getUsers", "manageUsers"],
 };

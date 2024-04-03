@@ -1,5 +1,5 @@
 import express from "express";
-import { postController } from "../../controllers";
+import { aiController, postController } from "../../controllers";
 import auth from "../../middlewares/auth";
 import { validate } from "../../middlewares/validate";
 import { postValidation } from "../../validations";
@@ -39,5 +39,13 @@ router
 router
   .route("/upload-media")
   .post(auth("uploadMedia"), postController.uploadMedia);
+
+router
+  .route("/explanation")
+  .post(
+    auth("getExplanation"),
+    checkActionAccess,
+    aiController.getExplanationStream
+  );
 
 export default router;
